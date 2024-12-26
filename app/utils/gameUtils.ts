@@ -5,21 +5,21 @@ export type Cell = {
   };
   
   export const phrases = [
-    "You're on mute",
-    "Sorry, I couldn't log in",
-    "I had connection issues",
-    "Can you repeat that?",
-    "I think you're frozen",
-    "Can everyone see my screen?",
-    "Let's circle back",
-    "I'll ping you later",
-    "Sorry, I was on another call",
-    "Let's take this offline",
-    "Can you hear me now?",
-    "You're muted",
-    "I'll follow up",
-    "Quick question",
-    "I have a hard stop",
+    "I love coffee",
+    "I live for traveling",
+    "I can speak more than 2 languages",
+    "I play a musical instrument",
+    "I have a pet",
+    "I prefer working in the morning",
+    "I’ve lived in another country",
+    "I enjoy cooking or baking",
+    "I’ve run a marathon",
+    "I enjoy watching sci-fi movies",
+    "I’m a fan of board games",
+    "I’ve tried bungee jumping",
+    "I love hiking or camping",
+    "I’ve met a celebrity in person",
+    "I enjoy gardening",
   ];
   
   export const shuffleArray = (array: string[]) => {

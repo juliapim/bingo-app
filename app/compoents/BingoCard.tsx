@@ -17,7 +17,7 @@ const BingoCard: React.FC = () => {
             cell.marked && !cell.free ? "line-through text-gray-500" : "" // Exclude free cells from line-through
             } ${cell.free ? "bg-[#63f0d2] font-bold" : "bg-[#63f0d2]"}`} // Style for the FREE cell
             onClick={() => toggleCell(rowIndex, colIndex)}
-            style={{ fontSize: "clamp(0.8rem, 2vw, 1.2rem)" }}>{cell.text}
+            style={{ fontSize: "clamp(0.6rem, 2vw, 1.2rem)" }}>{cell.text}
         </div>
 
           
