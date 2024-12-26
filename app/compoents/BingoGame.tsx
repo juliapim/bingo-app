@@ -68,7 +68,7 @@ const BingoGame: React.FC = () => {
     <GameContextProvider value={{ board, toggleCell }}>
       <div className="bg-black flex flex-col items-center justify-center min-h-screen font-monoLisaRegular">
         <h1 className="text-4xl text-center leading-snug font-bold mb-8 mt-8 text-white">Enjoy our Sensory Virtual Bingo!</h1>
-        <div className="w-full max-w-6xl px-4"> {/* Increased width for Bingo */}
+        <div className="w-full max-w-6xl px-4"> 
           <BingoCard />
         </div>
         {bingoMessage && (

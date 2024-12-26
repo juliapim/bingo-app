@@ -14,8 +14,8 @@ const BingoCard: React.FC = () => {
         <div
             key={`${rowIndex}-${colIndex}`}
             className={`bg-black text-white border-3 border-teal-300 border p-4 text-center cursor-pointer w-full h-full flex items-center justify-center ${
-            cell.marked && !cell.free ? "line-through text-gray-500" : "" // Exclude free cells from line-through
-            } ${cell.free ? "bg-[#63f0d2] font-bold" : "bg-[#63f0d2]"}`} // Style for the FREE cell
+            cell.marked && !cell.free ? "line-through text-gray-500" : "" 
+            } ${cell.free ? "bg-[#63f0d2] font-bold" : "bg-[#63f0d2]"}`} 
             onClick={() => toggleCell(rowIndex, colIndex)}
             style={{ fontSize: "clamp(0.6rem, 2vw, 1.2rem)" }}>{cell.text}
         </div>
