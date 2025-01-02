@@ -8,8 +8,10 @@ import { shuffleArray, phrases, Cell } from "../utils/gameUtils";
 const BingoGame: React.FC = () => {
   const [board, setBoard] = useState<Cell[][]>([]);
   const [bingoMessage, setBingoMessage] = useState<string | null>(null);
+  const [animationVisible, setAnimationVisible] = useState(false); // Tracks animation visibility
+  const [gameStarted, setGameStarted] = useState(false); // Tracks if the game has started
 
-  useEffect(() => {
+  const initializeBoard = () => {
     const shuffledPhrases = shuffleArray([...phrases, ...phrases]); // Duplicate phrases to ensure enough for the grid
     const newBoard = Array(5)
       .fill(null)
@@ -26,9 +28,16 @@ const BingoGame: React.FC = () => {
           }))
       );
     setBoard(newBoard);
+    setGameStarted(false); // Reset game state
+  };
+
+  useEffect(() => {
+    initializeBoard();
   }, []);
 
   useEffect(() => {
+    if (!gameStarted) return; // Avoid checking Bingo if the game hasn't started
+
     const checkBingo = () => {
       const isWinningRow = (row: Cell[]) => row.every((cell) => cell.marked);
       const isWinningCol = (colIndex: number) => board.every((row) => row[colIndex].marked);
@@ -42,16 +51,21 @@ const BingoGame: React.FC = () => {
         isWinningDiagonal();
 
       if (hasBingo) {
+        setAnimationVisible(true); // Show animation
         setBingoMessage("Bingo!");
-      } else {
-        setBingoMessage(null);
+        setTimeout(() => {
+          setAnimationVisible(false); // Hide animation after 5 seconds
+          setBingoMessage(null);
+          initializeBoard(); // Restart the game
+        }, 3000);
       }
     };
 
     checkBingo();
-  }, [board]);
+  }, [board, gameStarted]);
 
   const toggleCell = (rowIndex: number, colIndex: number) => {
+    setGameStarted(true); // Mark the game as started when a cell is toggled
     setBoard((prevBoard) => {
       const newBoard = prevBoard.map((row, rIdx) =>
         row.map((cell, cIdx) =>
@@ -66,16 +80,24 @@ const BingoGame: React.FC = () => {
 
   return (
     <GameContextProvider value={{ board, toggleCell }}>
-      <div className="bg-black flex flex-col items-center justify-center min-h-screen font-monoLisaRegular">
-        <h1 className="text-4xl text-center leading-snug font-bold mb-8 mt-8 text-white">Enjoy our Sensory Virtual Bingo!</h1>
-        <div className="w-full max-w-6xl px-4"> 
-          <BingoCard />
+      <div className="bg-black flex flex-col items-center justify-center min-h-screen font-monoLisaRegular relative">
+        <h1 className="text-4xl font-bold mt-6 mb-6 text-center leading-normal text-white">That Sounds Like Me! Pick Your Match:</h1>
+        <div className="w-full max-w-6xl mb-7 px-4 relative">
+          {animationVisible && bingoMessage && (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="p-8 bg-[#f0006d] text-[#f0006d] rounded animate-bounce">
+                <h1 className="text-6xl font-bold text-black animate-pulse">{bingoMessage}</h1>
+              </div>
+            </div>
+          )}
+          <BingoCard
+            cellClass={(cell) =>
+              cell.free
+                ? "bg-[#80ecdc] text-black border-2 border-teal-300"
+                : "bg-black text-white border-2 border-teal-300"
+            }
+          />
         </div>
-        {bingoMessage && (
-          <div className="mt-4 p-4 bg-[#f0006d] rounded absolute  animate-bounce">
-            <h1 className="text-6xl font-bold text-black animate-pulse">{bingoMessage}</h1>
-          </div>
-        )}
       </div>
     </GameContextProvider>
   );
