@@ -82,7 +82,7 @@ const BingoGame: React.FC = () => {
     <GameContextProvider value={{ board, toggleCell }}>
       <div className="bg-black flex flex-col items-center justify-center min-h-screen font-monoLisaRegular relative">
         <h1 className="text-4xl font-bold mt-6 mb-6 text-center leading-normal text-white">That Sounds Like Me! Pick Your Match:</h1>
-        <div className="w-full max-w-6xl mb-7 px-4 relative">
+        <div className="w-full max-w-6xl px-4 relative">
           {animationVisible && bingoMessage && (
             <div className="absolute inset-0 flex items-center justify-center z-10">
               <div className="p-8 bg-[#f0006d] text-[#f0006d] rounded animate-bounce">
